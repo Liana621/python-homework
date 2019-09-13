@@ -63,8 +63,12 @@ budgetfile['profit_losses'].max()
 #The total number of months included in the dataset
 budgetfile['date'].count()
 
+TotalMonths = budgetfile['date'].count()
+
 #Net Value of Profit Losses Coloum
 budgetfile['profit_losses'].sum()
+
+NetPnL = budgetfile['profit_losses'].sum()
       
 #Mean of the above
 budgetfile['profit_losses'].mean()
@@ -76,6 +80,35 @@ budgetfile['pnl_changes'] = budgetfile['profit_losses']-budgetfile['profit_losse
 coloum = (budgetfile['profit_losses']-budgetfile['profit_losses'].shift())
 
 coloum.mean()
+      
+AvgPnL = coloum.mean()
+
+      
+max_change = budgetfile['pnl_changes'].max()
+print(max_change)
+
+budgetfile.loc[budgetfile["pnl_changes"] == budgetfile["pnl_changes"].max(),'date']
+
+min_change = budgetfile['pnl_changes'].min()
+
+budgetfile.loc[budgetfile["pnl_changes"] == budgetfile["pnl_changes"].min(),'date']
+
+#Print Answers
+print("Financial Analysis")
+print("----------------------")
+print(f"Total Months: {TotalMonths}")
+print(f"Total: ${NetPnL}")
+print(f"Average Change: ${AvgPnL}")
+print(f"Greatest incraese in profits Feb: 2012  $({max_change})")
+print(f"Greatest Decrease in Loss: Sep-2013 $({min_change})")
+      
+
+      
+      
+
+
+      
+
       
 
       
