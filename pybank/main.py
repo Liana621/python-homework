@@ -30,7 +30,7 @@ with open(csvpath, 'r') as csvfile:
     print(type(csvreader))      
       
       
-      
+###All other info uploaded pushed before this last one were trial &errors. I added alllll lines of notebook here that worked and now below information has correct codes/answers to HW!      
       
 #This works to print info in csv      
 import pandas as pd
@@ -102,12 +102,72 @@ print(f"Average Change: ${AvgPnL}")
 print(f"Greatest incraese in profits Feb: 2012  $({max_change})")
 print(f"Greatest Decrease in Loss: Sep-2013 $({min_change})")
       
-
       
-      
+#All ACTUAL NEW CodeS That WORK
 
-
+import pandas as pd
+from pathlib import Path
       
+csvpath = Path('budget_data.csv')
+
+budgetfile = pd.read_csv(csvpath)
+budgetfile.head()
+
+budgetfile = budgetfile.rename(columns={
+   "Date":"date",
+   "Profit/Losses":"profit_losses"})
+budgetfile.head()
+
+budgetfile['profit_losses'].max()
+
+budgetfile['date'].count()
+      
+TotalMonths = budgetfile['date'].count()
+
+TotalMonths = budgetfile['date'].count()
+
+budgetfile['profit_losses'].sum()
+      
+NetPnL = budgetfile['profit_losses'].sum()
+      
+budgetfile['profit_losses'].mean()
+
+budgetfile['profit_losses'].sum()
+budgetfile['pnl_changes'] = budgetfile['profit_losses']-budgetfile['profit_losses'].shift()
+      
+budgetfile
+
+#Add new coloum
+coloum = (budgetfile['profit_losses']-budgetfile['profit_losses'].shift())
+
+#Average of new
+coloum.mean()
+
+#Set Above as a variable
+AvgPnL = coloum.mean()
+      
+#4
+max_change = budgetfile['pnl_changes'].max()
+print(max_change)
+
+#Find the location of the Max
+budgetfile.loc[budgetfile["pnl_changes"] == budgetfile["pnl_changes"].max(),'date']
+
+#5
+min_change = budgetfile['pnl_changes'].min()
+print(min_change)
+
+#Find location of the Min
+budgetfile.loc[budgetfile["pnl_changes"] == budgetfile["pnl_changes"].min(),'date']
+      
+#HW Final answer!!!!!!!!!!!!!!!
+print("Financial Analysis")
+print("----------------------")
+print(f"Total Months: {TotalMonths}")
+print(f"Total: ${NetPnL}")
+print(f"Average Change: ${AvgPnL}")
+print(f"Greatest incraese in profits Feb: 2012  $({max_change})")
+print(f"Greatest Decrease in Loss: Sep-2013 $({min_change})")    
 
       
 
